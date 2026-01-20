@@ -1,11 +1,6 @@
 {
   description = "teepot";
 
-  nixConfig = {
-    extra-substituters = [ "https://static.188.92.12.49.clients.your-server.de/tee-pot" ];
-    extra-trusted-public-keys = [ "tee-pot:SS6HcrpG87S1M6HZGPsfo7d1xJccCGev7/tXc5+I4jg=" ];
-  };
-
   inputs = {
     nixpkgs-25-05.url = "github:nixos/nixpkgs/nixos-25.05";
     nixsgx-flake.url = "github:matter-labs/nixsgx";
