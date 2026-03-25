@@ -1,12 +1,12 @@
 # SPDX-License-Identifier: Apache-2.0
 # Copyright (c) 2024 Matter Labs
-{ lib
-, pkgs
-, mkShell
-, teepot
-, nixsgx
-, stdenv
-,
+{
+  lib,
+  pkgs,
+  mkShell,
+  teepot,
+  nixsgx,
+  stdenv,
 }:
 let
   toolchain_with_src = (
@@ -28,19 +28,16 @@ mkShell {
     teepot.teepot.passthru.rustPlatform.bindgenHook
   ];
 
-  packages =
-    with pkgs;
-    [
-      dive
-      taplo
-      vault
-      cargo-release
-      azure-cli
-      kubectl
-      kubectx
-      k9s
-      google-cloud-sdk
-    ];
+  packages = with pkgs; [
+    dive
+    taplo
+    cargo-release
+    azure-cli
+    kubectl
+    kubectx
+    k9s
+    google-cloud-sdk
+  ];
 
   env = {
     QCNL_CONF_PATH =
@@ -54,11 +51,14 @@ mkShell {
 
   shellHook = ''
     export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:${
-      pkgs.lib.makeLibraryPath (lib.optionals (stdenv.hostPlatform.system == "x86_64-linux") [
-        pkgs.curl
-        nixsgx.sgx-dcap
-        nixsgx.sgx-dcap.quote_verify
-        nixsgx.sgx-dcap.default_qpl
-      ])}"
+      pkgs.lib.makeLibraryPath (
+        lib.optionals (stdenv.hostPlatform.system == "x86_64-linux") [
+          pkgs.curl
+          nixsgx.sgx-dcap
+          nixsgx.sgx-dcap.quote_verify
+          nixsgx.sgx-dcap.default_qpl
+        ]
+      )
+    }"
   '';
 }
