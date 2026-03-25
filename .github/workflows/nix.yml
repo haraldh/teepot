@@ -23,6 +23,7 @@ jobs:
             access-tokens = github.com=${{ github.token }}
             trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= cache:uLQovCi1QU+B4PPXhue3z7y2NqznyEJIsGiENpNZtiI=
             substituters = https://cache.nixos.org/ https://attic.teepot.org/cache
+            fallback = true
             sandbox = true
       - name: Setup Attic cache
         uses: ryanccn/attic-action@v0
@@ -35,7 +36,7 @@ jobs:
 
   build:
     needs: check
-    runs-on: [matterlabs-default-infra-runners]
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
       - uses: cachix/install-nix-action@v31
@@ -45,6 +46,7 @@ jobs:
             access-tokens = github.com=${{ github.token }}
             trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= cache:uLQovCi1QU+B4PPXhue3z7y2NqznyEJIsGiENpNZtiI=
             substituters = https://cache.nixos.org/ https://attic.teepot.org/cache
+            fallback = true
             sandbox = true
       - name: Setup Attic cache
         uses: ryanccn/attic-action@v0
@@ -58,7 +60,7 @@ jobs:
 
   push_to_docker:
     needs: build
-    runs-on: [matterlabs-default-infra-runners]
+    runs-on: ubuntu-latest
     concurrency:
       group: ${{ github.workflow }}-${{ github.ref }}-${{ matrix.config.nixpackage }}
       cancel-in-progress: true
@@ -66,16 +68,12 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - { nixpackage: 'container-vault-sgx-azure' }
-          - { nixpackage: 'container-vault-unseal-sgx-azure' }
-          - { nixpackage: 'container-vault-admin-sgx-azure' }
-          - { nixpackage: 'container-vault-unseal' }
-          - { nixpackage: 'container-vault-admin' }
           - { nixpackage: 'container-self-attestation-test-sgx-dcap' }
           - { nixpackage: 'container-self-attestation-test-sgx-azure' }
           - { nixpackage: 'container-verify-attestation-sgx' }
           - { nixpackage: 'container-verify-era-proof-attestation-sgx' }
           - { nixpackage: 'container-tdx-test' }
+          - { nixpackage: 'container-tee-key-preexec-dcap' }
     steps:
       - uses: actions/checkout@v4
       - uses: cachix/install-nix-action@v31
@@ -85,6 +83,7 @@ jobs:
             access-tokens = github.com=${{ github.token }}
             trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= cache:uLQovCi1QU+B4PPXhue3z7y2NqznyEJIsGiENpNZtiI=
             substituters = https://cache.nixos.org/ https://attic.teepot.org/cache
+            fallback = true
             sandbox = true
       - name: Setup Attic cache
         uses: ryanccn/attic-action@v0
@@ -125,34 +124,3 @@ jobs:
         run: |
           docker tag "${{ steps.build.outputs.IMAGE_TAG }}" "ghcr.io/${{ github.repository_owner }}"/"${{ steps.build.outputs.IMAGE_NAME }}:$GITHUB_REF_NAME"
           docker push "ghcr.io/${{ github.repository_owner }}"/"${{ steps.build.outputs.IMAGE_NAME }}:$GITHUB_REF_NAME"
-
-      - name: Generate build ID for Flux Image Automation
-        id: flux
-        if: ${{ github.event_name == 'push' && !startsWith(github.ref, 'refs/tags') }}
-        run: |
-          sha=$(git rev-parse --short HEAD)
-          ts=$(date +%s%N | cut -b1-13)
-          echo "BUILD_ID=${sha}-${ts}" >> "$GITHUB_OUTPUT"
-
-      - name: Generate build ID for Flux Image Automation
-        id: tag
-        if: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/tags') }}
-        run: |
-          echo "BUILD_ID=${GITHUB_REF#refs/*/}" >> "$GITHUB_OUTPUT"
-
-      - name: Auth to google artifact registry
-        if: ${{ github.event_name == 'push' }}
-        run: |
-          gcloud auth configure-docker us-docker.pkg.dev -q
-
-      - name: Push Docker image to matterlabs-infra
-        if: ${{ github.event_name == 'push' && !startsWith(github.ref, 'refs/tags') }}
-        run: |
-          docker tag "${{ steps.build.outputs.IMAGE_TAG }}" "us-docker.pkg.dev/matterlabs-infra/matterlabs-docker/${{ steps.build.outputs.IMAGE_NAME }}:${{ steps.flux.outputs.BUILD_ID }}"
-          docker push "us-docker.pkg.dev/matterlabs-infra/matterlabs-docker/${{ steps.build.outputs.IMAGE_NAME }}:${{ steps.flux.outputs.BUILD_ID }}"
-
-      - name: Push Docker image to matterlabs-infra
-        if: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/tags') }}
-        run: |
-          docker tag "${{ steps.build.outputs.IMAGE_TAG }}" "us-docker.pkg.dev/matterlabs-infra/matterlabs-docker/${{ steps.build.outputs.IMAGE_NAME }}:${{ steps.tag.outputs.BUILD_ID }}"
-          docker push "us-docker.pkg.dev/matterlabs-infra/matterlabs-docker/${{ steps.build.outputs.IMAGE_NAME }}:${{ steps.tag.outputs.BUILD_ID }}"
