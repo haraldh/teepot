@@ -158,11 +158,11 @@
     },
     "nixpkgs-25-05": {
       "locked": {
-        "lastModified": 1748437600,
-        "narHash": "sha256-hYKMs3ilp09anGO7xzfGs3JqEgUqFMnZ8GMAqI6/k04=",
+        "lastModified": 1767313136,
+        "narHash": "sha256-16KkgfdYqjaeRGBaYsNrhPRRENs0qzkQVUooNHtoy2w=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "7282cb574e0607e65224d33be8241eae7cfe0979",
+        "rev": "ac62194c3917d5f474c1a844b6fd6da2db95077d",
         "type": "github"
       },
       "original": {
@@ -194,15 +194,15 @@
         "snowfall-lib": "snowfall-lib"
       },
       "locked": {
-        "lastModified": 1733824290,
-        "narHash": "sha256-8MKgW3pFW+IxsM/iGfHio91Gym89gh9uNQ3JO4+D8QY=",
-        "owner": "matter-labs",
+        "lastModified": 1753950049,
+        "narHash": "sha256-oQ9Vgp+uwZsKY7v3D7xpnD+anwVGs1w2DPQdlgUuXP8=",
+        "owner": "haraldh",
         "repo": "nixsgx",
-        "rev": "788ff5233053a52421c9f8fa626a936785dda511",
+        "rev": "def776eabbffe2a366165866f46c057cce0df0cc",
         "type": "github"
       },
       "original": {
-        "owner": "matter-labs",
+        "owner": "haraldh",
         "repo": "nixsgx",
         "type": "github"
       }
@@ -251,11 +251,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1748572605,
-        "narHash": "sha256-k0nhPtkVDQkVJckRw6fGIeeDBktJf1BH0i8T48o7zkk=",
+        "lastModified": 1772775058,
+        "narHash": "sha256-i+I9RYN8kYb9/9kibkxd0avkkislD1tyWojSVgIy160=",
         "owner": "oxalica",
         "repo": "rust-overlay",
-        "rev": "405ef13a5b80a0a4d4fc87c83554423d80e5f929",
+        "rev": "629bbb7f9d02787a54e28398b411da849246253b",
         "type": "github"
       },
       "original": {
@@ -367,15 +367,15 @@
         "nixsgx-flake": "nixsgx-flake_2"
       },
       "locked": {
-        "lastModified": 1747897304,
-        "narHash": "sha256-8O9ry5FaD1fkRqvHV5hPtsg5G+Z0RX6MRkazn5bmK50=",
-        "owner": "matter-labs",
+        "lastModified": 1753276415,
+        "narHash": "sha256-dCWdxftQl4ZVlY3hV8KooIsCripmk57Tntv/BFiQX2Q=",
+        "owner": "haraldh",
         "repo": "vault-auth-tee",
-        "rev": "dc802364964d9fe01b2e164e3fb3005bcdf91272",
+        "rev": "1923eaaa4d555d0ccefe5a0f0d038bb02e47a4e0",
         "type": "github"
       },
       "original": {
-        "owner": "matter-labs",
+        "owner": "haraldh",
         "repo": "vault-auth-tee",
         "type": "github"
       }
