@@ -1,14 +1,19 @@
 {
   description = "teepot";
 
+  nixConfig = {
+    extra-substituters = [ "https://attic.teepot.org/cache" ];
+    extra-trusted-public-keys = [ "cache:uLQovCi1QU+B4PPXhue3z7y2NqznyEJIsGiENpNZtiI=" ];
+  };
+
   inputs = {
     nixpkgs-25-05.url = "github:nixos/nixpkgs/nixos-25.05";
-    nixsgx-flake.url = "github:matter-labs/nixsgx";
+    nixsgx-flake.url = "github:haraldh/nixsgx";
     nixpkgs.follows = "nixsgx-flake/nixpkgs";
     snowfall-lib.follows = "nixsgx-flake/snowfall-lib";
 
     vault-auth-tee-flake = {
-      url = "github:matter-labs/vault-auth-tee";
+      url = "github:haraldh/vault-auth-tee";
       inputs.nixpkgs.follows = "nixsgx-flake/nixpkgs";
     };
 
