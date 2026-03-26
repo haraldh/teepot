@@ -107,17 +107,17 @@ in
 
             postInstall = ''
               qemu-img convert -f raw -O vmdk \
-                $out/${config.image.repart.imageFileBasename}.raw \
-                $out/${config.image.repart.imageFileBasename}.vmdk
+                $out/${config.image.baseName}.raw \
+                $out/${config.image.baseName}.vmdk
               qemu-img info \
-                $out/${config.image.repart.imageFileBasename}.vmdk
+                $out/${config.image.baseName}.vmdk
               echo "kernel: ${kernel}"
               echo "uki: ${ukifile}"
               rtmr-calc \
-               --image $out/${config.image.repart.imageFileBasename}.raw \
+               --image $out/${config.image.baseName}.raw \
                --bootefi "${ukifile}" \
-               --kernel "${kernel}" | tee $out/${config.image.repart.imageFileBasename}_rtmr.json
-              rm -vf $out/${config.image.repart.imageFileBasename}.raw
+               --kernel "${kernel}" | tee $out/${config.image.baseName}_rtmr.json
+              rm -vf $out/${config.image.baseName}.raw
             '';
           }
       );

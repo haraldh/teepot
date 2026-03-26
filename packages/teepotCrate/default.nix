@@ -1,16 +1,16 @@
 # SPDX-License-Identifier: Apache-2.0
 # Copyright (c) 2024 Matter Labs
-{
-  lib,
-  inputs,
-  stdenv,
-  makeRustPlatform,
-  nixsgx ? null,
-  pkg-config,
-  rust-bin,
-  pkgs,
-  openssl,
-  darwin,
+{ lib
+, inputs
+, stdenv
+, makeRustPlatform
+, nixsgx ? null
+, pkg-config
+, rust-bin
+, pkgs
+, openssl
+, darwin
+,
 }:
 let
   rustVersion = rust-bin.fromRustupToolchainFile (inputs.src + "/rust-toolchain.toml");

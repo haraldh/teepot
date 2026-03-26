@@ -7,7 +7,8 @@
 , coreutils
 , container-name ? "teepot-key-preexec-dcap"
 , tag ? null
-}: let
+}:
+let
   entrypoint = "${bash}/bin/bash";
 in
 if (stdenv.hostPlatform.system != "x86_64-linux") then { } else
@@ -23,7 +24,7 @@ pkgs.lib.tee.sgxGramineContainer {
         entrypoint
         "-c"
         ("${teepot.teepot.tee_key_preexec}/bin/tee-key-preexec -- bash -c "
-        + "'echo \"SIGNING_KEY=$SIGNING_KEY\"; echo \"TEE_TYPE=$TEE_TYPE\";exec base64 \"$ATTESTATION_QUOTE_FILE_PATH\";'")
+          + "'echo \"SIGNING_KEY=$SIGNING_KEY\"; echo \"TEE_TYPE=$TEE_TYPE\";exec base64 \"$ATTESTATION_QUOTE_FILE_PATH\";'")
       ];
 
       log_level = "error";
