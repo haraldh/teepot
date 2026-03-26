@@ -28,5 +28,3 @@ x509-cert.workspace = true
 
 [[example]]
 name = "integration_test"
-required-features = ["default"]
-
