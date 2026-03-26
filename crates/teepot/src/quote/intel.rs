@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: BSD-3-Clause
+
 // SPDX-License-Identifier: Apache-2.0
 // Copyright (c) 2025 Matter Labs
 
@@ -138,7 +140,7 @@ pub(crate) fn verify_quote_with_collateral(
         None,
         supp_data_descriptor.as_mut(),
     )
-    .map_err(|e| convert_quote_error(e, "tee_verify_quote"))?;
+        .map_err(|e| convert_quote_error(e, "tee_verify_quote"))?;
 
     // Extract supplemental data if available
     let (advisories, earliest_expiration_date, tcb_level_date_tag) =
@@ -186,7 +188,6 @@ fn initialize_supplemental_data(quote: &[u8]) -> Result<TeeSuppDataDescriptor, Q
         supp_data_desc.data_size = supp_size;
         Some(supp_data_desc)
     } else {
-        supp_data_desc.data_size = 0;
         trace!(
             "tee_get_supplemental_data_version_and_size supp_size: {}",
             supp_size

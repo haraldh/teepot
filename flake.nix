@@ -7,7 +7,7 @@
   };
 
   inputs = {
-    nixpkgs-25-11.url = "github:nixos/nixpkgs/nixos-25.11";
+    nixpkgs-25-11.url = "github:nixos/nixpkgs/nixos-25.11-small";
     nixsgx-flake.url = "github:haraldh/nixsgx";
     nixpkgs.follows = "nixsgx-flake/nixpkgs";
     snowfall-lib.follows = "nixsgx-flake/snowfall-lib";
@@ -17,7 +17,7 @@
       inputs.nixpkgs.follows = "nixsgx-flake/nixpkgs";
     };
 
-    crane.url = "github:ipetkov/crane?ref=efd36682371678e2b6da3f108fdb5c613b3ec598"; # v0.20.3
+    crane.url = "github:ipetkov/crane";
   };
 
   outputs =

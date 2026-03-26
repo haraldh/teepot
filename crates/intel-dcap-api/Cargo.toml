@@ -30,6 +30,3 @@ x509-cert.workspace = true
 name = "integration_test"
 required-features = ["default"]
 
-[features]
-default = ["reqwest/default-tls"]
-rustls = ["reqwest/rustls-tls"]

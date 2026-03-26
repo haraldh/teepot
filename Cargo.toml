@@ -4,9 +4,9 @@ resolver = "2"
 
 # exclude x86_64 only crates
 exclude = [
-  "crates/teepot-tee-quote-verification-rs",
-  "crates/teepot-tdx-attest-rs",
-  "crates/teepot-tdx-attest-sys",
+    "crates/teepot-tee-quote-verification-rs",
+    "crates/teepot-tdx-attest-rs",
+    "crates/teepot-tdx-attest-sys",
 ]
 
 [profile.release]
@@ -35,30 +35,30 @@ bytes = "1"
 chrono = "0.4.40"
 clap = { version = "4.5", features = ["std", "derive", "env", "error-context", "help", "usage", "wrap_help"], default-features = false }
 config = { version = "0.15.8", default-features = false, features = ["yaml", "json", "toml", "async"] }
-const-oid = { version = "0.9.6", default-features = false }
-dcap-qvl = "0.2.3"
+const-oid = { version = "0.9.6", default-features = false, features = ["db"] }
+dcap-qvl = "0.3"
 enumset = { version = "1.1", features = ["serde"] }
 futures = "0.3.31"
 futures-core = { version = "0.3.30", default-features = false }
-getrandom = { version = "0.3.1", features = ["std"] }
+getrandom = { version = "0.4", features = ["std"] }
 gpt = "4.0.0"
 hex = { version = "0.4.3", features = ["std"], default-features = false }
 intel-dcap-api = { path = "crates/intel-dcap-api" }
-jsonrpsee-types = "0.25.1"
+jsonrpsee-types = "0.26"
 mockito = "1.4"
 num-integer = "0.1.46"
 num-traits = "0.2.18"
-opentelemetry = { version = "0.30", features = ["default", "logs"] }
-opentelemetry-appender-tracing = { version = "0.30", features = ["experimental_metadata_attributes", "log"] }
-opentelemetry-otlp = { version = "0.30", features = ["grpc-tonic", "logs"] }
-opentelemetry-semantic-conventions = { version = "0.30", features = ["semconv_experimental"] }
-opentelemetry_sdk = { version = "0.30", features = ["tokio", "rt-tokio"] }
+opentelemetry = { version = "0.31", features = ["default", "logs"] }
+opentelemetry-appender-tracing = { version = "0.31", features = ["experimental_metadata_attributes", "log"] }
+opentelemetry-otlp = { version = "0.31", features = ["grpc-tonic", "logs"] }
+opentelemetry-semantic-conventions = { version = "0.31", features = ["semconv_experimental"] }
+opentelemetry_sdk = { version = "0.31", features = ["tokio", "rt-tokio"] }
 p256 = "0.13.2"
 pe-sign = "0.1.10"
 percent-encoding = "2.3.1"
-pgp = { version = "0.16", default-features = false }
+pgp = { version = "0.19", default-features = false }
 pkcs8 = { version = "0.10" }
-reqwest = { version = "0.12", features = ["json"] }
+reqwest = { version = "0.13", features = ["json"] }
 rsa = { version = "0.9.6", features = ["sha2", "pem"] }
 rustls = { version = "0.23.20", default-features = false, features = ["std", "logging", "tls12", "ring"] }
 secp256k1 = { version = "0.31", features = ["rand", "global-context"] }
@@ -66,7 +66,7 @@ serde = { version = "1", features = ["derive", "rc"] }
 serde_json = "1"
 serde_with = { version = "3.8", features = ["base64", "hex"] }
 serde_yaml = "0.9.33"
-sha2 = "0.10.8"
+sha2 = "0.10"
 sha3 = "0.10.8"
 signature = "2.2.0"
 teepot = { version = "0.6.0", path = "crates/teepot" }

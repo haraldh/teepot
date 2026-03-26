@@ -1,10 +1,11 @@
+// SPDX-License-Identifier: BSD-3-Clause
+
 // SPDX-License-Identifier: Apache-2.0
 // Copyright (c) 2025 Matter Labs
 
 use anyhow::Result;
 use serde::{Deserialize, Serialize};
 use teepot::config::{load_config_with_telemetry, TelemetryConfig};
-use thiserror::Error;
 use tracing::{debug, error, info, trace, warn};
 
 // Configuration struct
@@ -35,13 +36,6 @@ impl Default for ServerConfig {
     fn default() -> Self {
         Self { port: 8080 }
     }
-}
-
-// Error handling
-#[derive(Error, Debug)]
-enum AppError {
-    #[error("Internal server error")]
-    Internal(#[from] anyhow::Error),
 }
 
 #[tokio::main]
