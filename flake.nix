@@ -35,11 +35,6 @@
       overlays = with inputs; [
         nixsgx-flake.overlays.default
         rust-overlay.overlays.default
-        (next: prev: {
-          inherit (inputs.nixpkgs-25-11.legacyPackages.${prev.system})
-            cargo-deny
-            ;
-        })
       ];
 
       alias = {
