@@ -9,9 +9,7 @@
 , teepot
 , nixsgx
 }:
-if (stdenv.hostPlatform.isDarwin) then {
-  # FIXME: dockerTools.buildLayeredImage seems to be broken on Darwin
-} else
+if (stdenv.hostPlatform.system != "x86_64-linux") then { } else
   dockerTools.buildLayeredImage {
     name = "tdx-test";
 
