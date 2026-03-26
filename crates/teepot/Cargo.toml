@@ -10,11 +10,6 @@ edition.workspace = true
 authors.workspace = true
 repository.workspace = true
 
-[target.'cfg(not(all(target_os = "linux", target_arch = "x86_64")))'.dependencies]
-dcap-qvl.workspace = true
-chrono.workspace = true
-bytes.workspace = true
-
 [features]
 default = ["quote_op"]
 quote_op = ["dep:teepot-tee-quote-verification-rs"]

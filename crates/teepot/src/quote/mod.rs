@@ -1,9 +1,6 @@
 // SPDX-License-Identifier: Apache-2.0
 // Copyright (c) 2023-2025 Matter Labs
 
-// Parts of it are Copyright (c) 2024 Phala Network
-// and copied from https://github.com/Phala-Network/dcap-qvl
-
 //! Get a quote from a TEE
 
 #[cfg(feature = "quote_op")]
@@ -11,12 +8,8 @@ pub mod attestation;
 pub mod error;
 pub mod tcblevel;
 
-#[cfg_attr(all(target_os = "linux", target_arch = "x86_64"), path = "intel.rs")]
-#[cfg_attr(
-    not(all(target_os = "linux", target_arch = "x86_64")),
-    path = "phala.rs"
-)]
 #[cfg(feature = "quote_op")]
+#[path = "intel.rs"]
 mod os;
 mod utils;
 

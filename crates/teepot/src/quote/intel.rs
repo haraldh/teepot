@@ -5,21 +5,24 @@
 
 //! Drive Intel DCAP verification crate, which is using the C library
 
-use crate::{
-    quote::{
-        error::QuoteError, tcblevel::TcbLevel, Collateral, Quote, QuoteVerificationResult, TEEType,
-    },
-    sgx::sgx_gramine_get_quote,
+use crate::quote::{
+    error::QuoteError, tcblevel::TcbLevel, Collateral, Quote, QuoteVerificationResult, TEEType,
 };
 use bytemuck::cast_slice;
 use std::{ffi::CStr, mem, mem::MaybeUninit, pin::Pin};
 use teepot_tee_quote_verification_rs::{
     quote3_error_t as _quote3_error_t, sgx_ql_qv_result_t, sgx_ql_qv_supplemental_t,
-    tdx_attest_rs::{tdx_att_get_quote, tdx_attest_error_t, tdx_report_data_t},
     tee_get_supplemental_data_version_and_size, tee_qv_get_collateral, tee_supp_data_descriptor_t,
     tee_verify_quote, Collateral as IntelCollateral,
 };
 use tracing::{trace, warn};
+
+#[cfg(all(target_os = "linux", target_arch = "x86_64"))]
+use crate::sgx::sgx_gramine_get_quote;
+#[cfg(all(target_os = "linux", target_arch = "x86_64"))]
+use teepot_tee_quote_verification_rs::tdx_attest_rs::{
+    tdx_att_get_quote, tdx_attest_error_t, tdx_report_data_t,
+};
 
 /// Convert SGX QV result to our TcbLevel enum
 fn convert_tcb_level(value: sgx_ql_qv_result_t) -> TcbLevel {
@@ -206,6 +209,7 @@ fn initialize_supplemental_data(quote: &[u8]) -> Result<TeeSuppDataDescriptor, Q
     })
 }
 
+#[cfg(all(target_os = "linux", target_arch = "x86_64"))]
 /// Prepare report data for quote generation
 fn prepare_report_data(report_data: &[u8]) -> Result<[u8; 64], QuoteError> {
     if report_data.len() > 64 {
@@ -217,6 +221,7 @@ fn prepare_report_data(report_data: &[u8]) -> Result<[u8; 64], QuoteError> {
     Ok(report_data_fixed)
 }
 
+#[cfg(all(target_os = "linux", target_arch = "x86_64"))]
 /// Get a TDX quote
 fn tdx_get_quote(report_data_bytes: &[u8; 64]) -> Result<Box<[u8]>, QuoteError> {
     let mut tdx_report_data = tdx_report_data_t { d: [0; 64usize] };
@@ -238,6 +243,7 @@ fn tdx_get_quote(report_data_bytes: &[u8; 64]) -> Result<Box<[u8]>, QuoteError> 
     }
 }
 
+#[cfg(all(target_os = "linux", target_arch = "x86_64"))]
 /// Detect the TEE environment
 fn detect_tee_environment() -> Result<TEEType, QuoteError> {
     if std::fs::metadata("/dev/attestation").is_ok() {
@@ -249,6 +255,7 @@ fn detect_tee_environment() -> Result<TEEType, QuoteError> {
     }
 }
 
+#[cfg(all(target_os = "linux", target_arch = "x86_64"))]
 /// Get the attestation quote from a TEE
 pub(crate) fn get_quote(report_data: &[u8]) -> Result<(TEEType, Box<[u8]>), QuoteError> {
     let report_data_fixed = prepare_report_data(report_data)?;
@@ -258,4 +265,10 @@ pub(crate) fn get_quote(report_data: &[u8]) -> Result<(TEEType, Box<[u8]>), Quot
         TEEType::TDX => Ok((TEEType::TDX, tdx_get_quote(&report_data_fixed)?)),
         _ => Err(QuoteError::UnknownTee), // For future TEE types
     }
+}
+
+#[cfg(not(all(target_os = "linux", target_arch = "x86_64")))]
+/// Get the attestation quote from a TEE (not available on this platform)
+pub(crate) fn get_quote(_report_data: &[u8]) -> Result<(TEEType, Box<[u8]>), QuoteError> {
+    Err(QuoteError::UnknownTee)
 }
