@@ -1,18 +1,18 @@
 # SPDX-License-Identifier: Apache-2.0
 # Copyright (c) 2024 Matter Labs
-{
-  lib,
-  pkgs,
-  makeWrapper,
-  teepot,
-  stdenv,
+{ lib
+, pkgs
+, makeWrapper
+, teepot
+, stdenv
+,
 }:
 let
   teepotCrate = teepot.teepotCrate;
 in
 teepotCrate.craneLib.buildPackage (
   teepotCrate.commonArgs
-  // {
+    // {
     pname = "teepot";
     inherit (teepotCrate) cargoArtifacts;
 

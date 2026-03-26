@@ -1,12 +1,12 @@
 # SPDX-License-Identifier: Apache-2.0
 # Copyright (c) 2024 Matter Labs
-{
-  lib,
-  pkgs,
-  mkShell,
-  teepot,
-  nixsgx,
-  stdenv,
+{ lib
+, pkgs
+, mkShell
+, teepot
+, nixsgx
+, stdenv
+,
 }:
 let
   toolchain_with_src = (
