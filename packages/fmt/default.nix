@@ -8,8 +8,13 @@
 pkgs.writeShellApplication {
   name = "fmt-teepot";
 
-  runtimeInputs = with pkgs;
-    [ nixpkgs-fmt coreutils taplo ]
+  runtimeInputs =
+    with pkgs;
+    [
+      nixfmt-rfc-style
+      coreutils
+      taplo
+    ]
     ++ teepot.teepot.nativeBuildInputs;
 
   text = ''

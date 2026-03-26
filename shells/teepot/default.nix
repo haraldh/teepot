@@ -49,21 +49,23 @@ mkShell {
     RUST_SRC_PATH = "${toolchain_with_src}/lib/rustlib/src/rust/";
   };
 
-  shellHook = let
-    libraryPath = pkgs.lib.makeLibraryPath (
-      [
-        nixsgx.sgx-dcap-quoteverify
-      ]
-      ++ lib.optionals (stdenv.hostPlatform.system == "x86_64-linux") [
-        pkgs.curl
-        nixsgx.sgx-dcap
-        nixsgx.sgx-dcap.quote_verify
-        nixsgx.sgx-dcap.default_qpl
-      ]
-    );
-  in ''
-    export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:${libraryPath}"
-  '' + lib.optionalString stdenv.hostPlatform.isDarwin ''
-    export DYLD_LIBRARY_PATH="$DYLD_LIBRARY_PATH:${libraryPath}"
-  '';
+  shellHook =
+    let
+      libraryPath = pkgs.lib.makeLibraryPath (
+        [
+          nixsgx.sgx-dcap-quoteverify
+        ]
+        ++ lib.optionals (stdenv.hostPlatform.system == "x86_64-linux") [
+          pkgs.curl
+          nixsgx.sgx-dcap
+          nixsgx.sgx-dcap.quote_verify
+          nixsgx.sgx-dcap.default_qpl
+        ]
+      );
+    in
+    ''
+      export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:${libraryPath}"
+    '' + lib.optionalString stdenv.hostPlatform.isDarwin ''
+      export DYLD_LIBRARY_PATH="$DYLD_LIBRARY_PATH:${libraryPath}"
+    '';
 }
