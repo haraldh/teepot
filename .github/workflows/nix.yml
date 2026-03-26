@@ -33,6 +33,8 @@ jobs:
             trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= cache:uLQovCi1QU+B4PPXhue3z7y2NqznyEJIsGiENpNZtiI=
             substituters = https://cache.nixos.org/ https://attic.teepot.org/cache
             fallback = true
+            sandbox = true
+
       - name: Setup Attic cache
         uses: ryanccn/attic-action@v0
         with:
