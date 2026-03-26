@@ -10,8 +10,8 @@ homepage = "https://github.com/matter-labs/teepot"
 description = "Fork of intel-tee-quote-verification-rs"
 
 [dependencies]
-serde = { version = "1", features = ["derive", "rc"] }
 intel-tee-quote-verification-sys = { version = "0.2.1" }
+serde = { version = "1", features = ["derive", "rc"] }
 
 [target.'cfg(all(target_os = "linux", target_arch = "x86_64"))'.dependencies]
 teepot-tdx-attest-rs = { version = "0.1.2", path = "../teepot-tdx-attest-rs" }

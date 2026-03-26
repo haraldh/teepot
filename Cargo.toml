@@ -3,10 +3,7 @@ members = ["crates/*", "bin/*"]
 resolver = "2"
 
 # exclude x86_64 only crates
-exclude = [
-  "crates/teepot-tdx-attest-rs",
-  "crates/teepot-tdx-attest-sys",
-]
+exclude = ["crates/teepot-tdx-attest-rs", "crates/teepot-tdx-attest-sys"]
 
 [profile.release]
 strip = true
