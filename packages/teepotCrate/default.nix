@@ -61,6 +61,7 @@ let
     env = {
       OPENSSL_NO_VENDOR = "1";
       NIX_OUTPATH_USED_AS_RANDOM_SEED = "aaaaaaaaaa";
+      SSL_CERT_FILE = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
     };
   };
 
