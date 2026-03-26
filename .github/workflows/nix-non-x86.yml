@@ -6,10 +6,10 @@ permissions:
 
 on:
   pull_request:
-    branches: ["main"]
+    branches: [ "main" ]
   push:
-    branches: ["main"]
-    tags: ["*"]
+    branches: [ "main" ]
+    tags: [ "*" ]
 
 jobs:
   macos-latest:
@@ -35,5 +35,5 @@ jobs:
         # FIXME: this prevents it from running on macos
         # https://github.com/NixOS/nix/pull/12570
         # run: nix run github:nixos/nixpkgs/nixos-24.11#nixci -- build
-        run: nix build -L .#teepot --no-sandbox
+        run: nix build -L .#teepot
 

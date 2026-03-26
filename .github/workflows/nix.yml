@@ -2,10 +2,10 @@ name: nix
 
 on:
   pull_request:
-    branches: ["main"]
+    branches: [ "main" ]
   push:
-    branches: ["main"]
-    tags: ["*"]
+    branches: [ "main" ]
+    tags: [ "*" ]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -35,7 +35,7 @@ jobs:
       - name: nix flake check
         run: nix flake check -L --show-trace --keep-going
       - name: nix build
-        run: nix run github:nixos/nixpkgs/nixos-23.11#nixci
+        run: nix run github:nixos/nixpkgs/nixos-25.11#nixci -- build
 
   push_to_docker:
     needs: build
