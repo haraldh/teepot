@@ -38,7 +38,6 @@ teepotCrate.craneLib.buildPackage (
       "tee_ratls_preexec"
       "tee_self_attestation_test"
       "verify_attestation"
-      "verify_era_proof_attestation"
     ];
 
     postInstall =

@@ -80,6 +80,3 @@ url = "2.5.2"
 webpki-roots = "1.0.0"
 x509-cert = { version = "0.2", features = ["builder", "signature", "default"] }
 zeroize = { version = "1.7.0", features = ["serde"] }
-zksync_basic_types = "28.6.0-non-semver-compat"
-zksync_types = "28.6.0-non-semver-compat"
-zksync_web3_decl = "28.6.0-non-semver-compat"
