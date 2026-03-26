@@ -1,8 +1,10 @@
-{ lib
-, modulesPath
-, pkgs
-, ...
-}: {
+{
+  lib,
+  modulesPath,
+  pkgs,
+  ...
+}:
+{
   imports = [
     "${toString modulesPath}/profiles/minimal.nix"
     "${toString modulesPath}/profiles/qemu-guest.nix"
@@ -16,8 +18,18 @@
 
   # the container might want to listen on ports
   networking.firewall.enable = true;
-  networking.firewall.allowedTCPPortRanges = [{ from = 1024; to = 65535; }];
-  networking.firewall.allowedUDPPortRanges = [{ from = 1024; to = 65535; }];
+  networking.firewall.allowedTCPPortRanges = [
+    {
+      from = 1024;
+      to = 65535;
+    }
+  ];
+  networking.firewall.allowedUDPPortRanges = [
+    {
+      from = 1024;
+      to = 65535;
+    }
+  ];
 
   services.resolved.enable = true;
   services.resolved.llmnr = "false";
@@ -88,10 +100,10 @@
 
   boot.initrd.systemd.enable = lib.mkDefault true;
 
-  services.logind.extraConfig = ''
-    NAutoVTs=0
-    ReserveVT=0
-  '';
+  services.logind.settings.Login = {
+    NAutoVTs = 0;
+    ReserveVT = 0;
+  };
 
   services.dbus.implementation = "broker";
 
@@ -105,7 +117,7 @@
   users.mutableUsers = false;
   users.allowNoPasswordLogin = true;
 
-  system.stateVersion = lib.version;
+  system.stateVersion = lib.trivial.release;
   system.switch.enable = lib.mkForce false;
 
   documentation.info.enable = lib.mkForce false;
