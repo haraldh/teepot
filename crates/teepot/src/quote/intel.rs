@@ -140,7 +140,7 @@ pub(crate) fn verify_quote_with_collateral(
         None,
         supp_data_descriptor.as_mut(),
     )
-        .map_err(|e| convert_quote_error(e, "tee_verify_quote"))?;
+    .map_err(|e| convert_quote_error(e, "tee_verify_quote"))?;
 
     // Extract supplemental data if available
     let (advisories, earliest_expiration_date, tcb_level_date_tag) =
