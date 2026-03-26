@@ -168,10 +168,12 @@ mod tests {
 
     fn generate_test_pubkey() -> PublicKey {
         let secp = Secp256k1::new();
-        let secret_key_bytes =
+        let secret_key_bytes: [u8; 32] =
             hex::decode("c87509a1c067bbde78beb793e6fa76530b6382a4c0241e5e4a9ec0a0f44dc0d3")
+                .unwrap()
+                .try_into()
                 .unwrap();
-        let secret_key = SecretKey::from_slice(&secret_key_bytes).unwrap();
+        let secret_key = SecretKey::from_byte_array(secret_key_bytes).unwrap();
         PublicKey::from_secret_key(&secp, &secret_key)
     }
 
