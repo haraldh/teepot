@@ -2,10 +2,10 @@ name: nix
 
 on:
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
   push:
-    branches: [ "main" ]
-    tags: [ "*" ]
+    branches: ["main"]
+    tags: ["*"]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -41,6 +41,10 @@ jobs:
           endpoint: https://attic.teepot.org/
           cache: cache
           token: ${{ secrets.ATTIC_TOKEN }}
+
+      - name: Configure AppArmor for x86_64-linux
+        if: matrix.system == 'x86_64-linux'
+        run: sudo sysctl kernel.apparmor_restrict_unprivileged_userns=0
 
       - name: nix flake check
         run: nix flake check -L --show-trace --keep-going
