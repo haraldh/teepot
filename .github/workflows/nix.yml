@@ -65,7 +65,6 @@ jobs:
           - { nixpackage: 'container-self-attestation-test-sgx-azure' }
           - { nixpackage: 'container-verify-attestation-sgx' }
           - { nixpackage: 'container-tdx-test' }
-          - { nixpackage: 'container-tee-key-preexec-dcap' }
     steps:
       - uses: actions/checkout@v4
       - uses: cachix/install-nix-action@v31

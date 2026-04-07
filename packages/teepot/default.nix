@@ -34,7 +34,6 @@ teepotCrate.craneLib.buildPackage (
       "rtmr_calc"
       "sha384_extend"
       "tdx_extend"
-      "tee_key_preexec"
       "tee_ratls_preexec"
       "tee_self_attestation_test"
       "verify_attestation"
