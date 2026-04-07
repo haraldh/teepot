@@ -4457,8 +4457,9 @@ mod sgx {
     async fn tdx_2() -> Result<()> {
         let quote = include_bytes!("data/tdx_quote.bin");
 
-        let collateral =
-            ciborium::from_reader::<Collateral, _>(include_bytes!("data/tdx_collateral.cbor").as_slice())?;
+        let collateral = ciborium::from_reader::<Collateral, _>(
+            include_bytes!("data/tdx_collateral.cbor").as_slice(),
+        )?;
 
         let report_data = hex::decode("00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000").unwrap();
 
