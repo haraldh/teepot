@@ -26,15 +26,12 @@ let
 
     buildInputs = [
       openssl.dev
+      nixsgx.sgx-dcap
+      nixsgx.sgx-dcap.quote_verify
     ]
     ++ lib.optionals (stdenv.hostPlatform.system == "x86_64-linux") [
       nixsgx.sgx-sdk
-      nixsgx.sgx-dcap
-      nixsgx.sgx-dcap.quote_verify
       nixsgx.sgx-dcap.libtdx_attest
-    ]
-    ++ lib.optionals (stdenv.hostPlatform.system != "x86_64-linux") [
-      nixsgx.sgx-dcap-quoteverify
     ];
 
     strictDeps = true;
