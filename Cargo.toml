@@ -26,6 +26,7 @@ asn1_der = { version = "0.7", default-features = false, features = ["native_type
 async-trait = "0.1.86"
 awc = { version = "3.5", features = ["rustls-0_23-webpki-roots"] }
 base64 = "0.22.0"
+ciborium = "0.2"
 bytemuck = { version = "1.15.0", features = ["derive", "min_const_generics", "extern_crate_std"] }
 bytes = "1"
 clap = { version = "4.5", features = ["std", "derive", "env", "error-context", "help", "usage", "wrap_help"], default-features = false }
