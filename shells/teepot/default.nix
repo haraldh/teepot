@@ -32,6 +32,7 @@ mkShell {
     dive
     taplo
     cargo-release
+    cargo-machete
     azure-cli
     kubectl
     kubectx
@@ -40,25 +41,24 @@ mkShell {
   ];
 
   env = {
-    QCNL_CONF_PATH =
-      if (stdenv.hostPlatform.system != "x86_64-linux") then
-        ""
-      else
-        "${nixsgx.sgx-dcap.default_qpl}/etc/sgx_default_qcnl.conf";
+    QCNL_CONF_PATH = "${nixsgx.sgx-dcap.default_qpl}/etc/sgx_default_qcnl.conf";
     OPENSSL_NO_VENDOR = "1";
     RUST_SRC_PATH = "${toolchain_with_src}/lib/rustlib/src/rust/";
   };
 
-  shellHook = ''
-    export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:${
-      pkgs.lib.makeLibraryPath (
-        lib.optionals (stdenv.hostPlatform.system == "x86_64-linux") [
-          pkgs.curl
-          nixsgx.sgx-dcap
-          nixsgx.sgx-dcap.quote_verify
-          nixsgx.sgx-dcap.default_qpl
-        ]
-      )
-    }"
-  '';
+  shellHook =
+    let
+      libPath = pkgs.lib.makeLibraryPath ([
+        pkgs.curl
+        nixsgx.sgx-dcap
+        nixsgx.sgx-dcap.quote_verify
+        nixsgx.sgx-dcap.default_qpl
+      ]);
+    in
+    ''
+      export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:${libPath}"
+    ''
+    + lib.optionalString stdenv.hostPlatform.isDarwin ''
+      export DYLD_LIBRARY_PATH="$DYLD_LIBRARY_PATH:${libPath}"
+    '';
 }
