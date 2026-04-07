@@ -12,6 +12,5 @@ publish = false
 anyhow.workspace = true
 serde.workspace = true
 teepot.workspace = true
-thiserror.workspace = true
 tokio.workspace = true
 tracing.workspace = true
