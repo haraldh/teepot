@@ -11,12 +11,12 @@ strip = true
 [workspace.package]
 version = "0.6.0"
 edition = "2021"
-authors = ["Harald Hoyer <hh@matterlabs.dev>"]
+authors = ["Harald Hoyer <harald@hoyer.xyz>"]
 # rest of the workspace, if not specified in the package section
 # has the standard Apache-2.0 OR MIT license
 license = "Apache-2.0 OR MIT"
-repository = "https://github.com/matter-labs/teepot"
-homepage = "https://github.com/matter-labs/teepot"
+repository = "https://github.com/haraldh/teepot"
+homepage = "https://github.com/haraldh/teepot"
 
 [workspace.dependencies]
 actix-http = "3"
