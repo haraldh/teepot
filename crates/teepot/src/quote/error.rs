@@ -4,7 +4,7 @@
 //! Quote Error type
 
 use std::io;
-#[cfg(all(feature = "quote_op", target_os = "linux", target_arch = "x86_64"))]
+#[cfg(all(target_os = "linux", target_arch = "x86_64"))]
 use teepot_tee_quote_verification_rs::tdx_attest_rs::tdx_attest_error_t;
 use thiserror::Error;
 
@@ -22,7 +22,7 @@ pub enum QuoteError {
     InvalidTeeType,
     #[error("unsupported body type")]
     UnsupportedBodyType,
-    #[cfg(all(feature = "quote_op", target_os = "linux", target_arch = "x86_64"))]
+    #[cfg(all(target_os = "linux", target_arch = "x86_64"))]
     #[error("tdx_att_get_quote error {msg}: {inner:?}")]
     TdxAttGetQuote {
         inner: tdx_attest_error_t,
@@ -58,7 +58,7 @@ pub enum QuoteError {
     CrlUnsupportedFormat(String),
 }
 
-#[cfg(all(feature = "quote_op", target_os = "linux", target_arch = "x86_64"))]
+#[cfg(all(target_os = "linux", target_arch = "x86_64"))]
 impl From<tdx_attest_error_t> for QuoteError {
     fn from(code: tdx_attest_error_t) -> Self {
         Self::TdxAttGetQuote {
@@ -108,7 +108,7 @@ impl<T, E: std::fmt::Display> QuoteContextErr for Result<T, E> {
     }
 }
 
-#[cfg(all(feature = "quote_op", target_os = "linux", target_arch = "x86_64"))]
+#[cfg(all(target_os = "linux", target_arch = "x86_64"))]
 impl<T> QuoteContext for Result<T, tdx_attest_error_t> {
     type Ok = T;
     fn context<I: Into<String>>(self, msg: I) -> Result<T, QuoteError> {

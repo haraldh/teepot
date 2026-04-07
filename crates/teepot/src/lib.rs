@@ -9,9 +9,7 @@
 pub mod config;
 pub mod ethereum;
 pub mod log;
-#[cfg(feature = "quote_op")]
 pub mod pki;
-pub mod prover;
 pub mod quote;
 pub mod sgx;
 pub mod tdx;

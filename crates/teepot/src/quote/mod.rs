@@ -3,12 +3,10 @@
 
 //! Get a quote from a TEE
 
-#[cfg(feature = "quote_op")]
 pub mod attestation;
 pub mod error;
 pub mod tcblevel;
 
-#[cfg(feature = "quote_op")]
 #[path = "intel.rs"]
 mod os;
 mod utils;
@@ -655,7 +653,6 @@ impl FromStr for TEEType {
 }
 
 /// Get the attestation quote from a TEE
-#[cfg(feature = "quote_op")]
 pub fn get_quote(report_data: &[u8]) -> Result<(TEEType, Box<[u8]>), QuoteError> {
     os::get_quote(report_data)
 }
@@ -702,13 +699,11 @@ pub struct Collateral {
 }
 
 /// Get the collateral data from an SGX or TDX quote
-#[cfg(feature = "quote_op")]
 pub fn get_collateral(quote: &[u8]) -> Result<Collateral, QuoteError> {
     os::get_collateral(quote)
 }
 
 /// Verifies a quote with optional collateral material
-#[cfg(feature = "quote_op")]
 pub fn verify_quote_with_collateral(
     quote: &[u8],
     collateral: Option<&Collateral>,

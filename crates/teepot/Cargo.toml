@@ -10,10 +10,6 @@ edition.workspace = true
 authors.workspace = true
 repository.workspace = true
 
-[features]
-default = ["quote_op"]
-quote_op = ["dep:teepot-tee-quote-verification-rs"]
-
 [dependencies]
 anyhow.workspace = true
 asn1_der.workspace = true
@@ -23,7 +19,6 @@ clap.workspace = true
 config.workspace = true
 const-oid.workspace = true
 enumset.workspace = true
-futures.workspace = true
 getrandom.workspace = true
 hex.workspace = true
 num-integer.workspace = true
@@ -44,7 +39,7 @@ serde_json.workspace = true
 sha2.workspace = true
 sha3.workspace = true
 signature.workspace = true
-teepot-tee-quote-verification-rs = { workspace = true, optional = true }
+teepot-tee-quote-verification-rs.workspace = true
 thiserror.workspace = true
 tokio.workspace = true
 tracing.workspace = true
@@ -56,6 +51,7 @@ zeroize.workspace = true
 
 [dev-dependencies]
 base64.workspace = true
+ciborium.workspace = true
 testaso.workspace = true
 tokio.workspace = true
 tracing-test.workspace = true
