@@ -30,7 +30,7 @@ jobs:
         with:
           extra_nix_config: |
             access-tokens = github.com=${{ github.token }}
-            trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= cache:uLQovCi1QU+B4PPXhue3z7y2NqznyEJIsGiENpNZtiI=
+            trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= cache:uBVyXkiuk10QNZcN5y5mIjjtuox79LeIFnqiCzE2TH4=
             substituters = https://cache.nixos.org/ https://attic.teepot.org/cache
             fallback = true
             sandbox = ${{ matrix.system == 'aarch64-darwin' && 'false' || 'true' }}
@@ -71,7 +71,7 @@ jobs:
         with:
           extra_nix_config: |
             access-tokens = github.com=${{ github.token }}
-            trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= cache:uLQovCi1QU+B4PPXhue3z7y2NqznyEJIsGiENpNZtiI=
+            trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= cache:uBVyXkiuk10QNZcN5y5mIjjtuox79LeIFnqiCzE2TH4=
             substituters = https://cache.nixos.org/ https://attic.teepot.org/cache
             fallback = true
       - name: Setup Attic cache
